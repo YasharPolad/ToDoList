@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3>Enter the Username of the Friend you want to share with</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit", value="Share">
+</form>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{%block content %}
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary" href = "{% url 'logout' %}">Logout</a>
+        <span><h3>{{user.username}}'s Tasks</h3></span>
+        
+        <span><a class="btn btn-primary" href = "{% url 'add' %}">Add Task</a></span>
+        <ul class="list-group">
+            {% for task in tasks %}
+            <li class="list-group-item">{{task.name}} / {{task.text}} / {{task.deadline}} 
+            <span><a class="btn btn-danger" href = "{% url 'delete' task.id %}">Delete</a></span> 
+            <span><a class="btn btn-success" href = "{% url 'share' task.id %}">Share</a></span> 
+            <span><a class="btn btn-success" href = "{% url 'view' task.id %}">View</a></span>
+    
+            </li>
+            {% endfor %}
+        </ul>
+        <br><br><br>
+        <span><h3>Friends's Tasks</h3></span>
+        <ul class="list-group">
+            {% for task in friends_tasks %}
+            <li class="list-group-item">
+            {{task.user}} / {{task.name}} / {{task.text}} / {{task.deadline}}
+            <span><a class="btn btn-success" href = "{% url 'view' task.id %}">View</a></span>
+            </li>
+            {% endfor %}
+        </ul>
+    
+        {% else %}
+        <h3>Welcome To the Task Manager. Please Sign Up or Login</h3>
+        <a class="btn btn-primary" href = "{% url 'login' %}">Login</a>
+        <a class="btn btn-primary" href = "{% url 'register' %}">Register</a>
+    {% endif %}
+{% endblock content %}
+    
